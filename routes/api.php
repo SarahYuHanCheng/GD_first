@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('register', 'UserController@create');
+Route::get('logout', 'UserController@logout');
+
+$tt='www';
+Route::middleware('auth.token:'.$tt)->post('login', 'UserController@login');
