@@ -12,17 +12,22 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-$tt='www';
 Route::post('register', 'UserController@create');
 
 
-Route::group(['middleware' => ['auth.token:'.$tt]], function(){
+Route::group(['middleware' => ['auth.merchant']], function(){
+    Route::get('merchant/logout', 'UserController@logout');
+    Route::post('merchant/login', 'UserController@login');
+    Route::resource('merchant/shop', 'ShopController')->only(['index', 'store', 'show']);
+    Route::resource('merchant/shopmagic', 'ShopMagicController')->only(['index', 'store', 'show']);
+    Route::resource('merchant/magic', 'MagicController')->only(['index', 'store', 'show']);
+});
+Route::group(['middleware' => ['auth.user']], function(){
     Route::get('logout', 'UserController@logout');
     Route::post('login', 'UserController@login');
-    Route::resource('accounts', 'AccountController')->only(['index', 'store', 'show']);
-    Route::resource('transactions', 'TransactionController')->only(['index', 'store', 'show']);
+    Route::resource('shop', 'ShopController')->only(['index', 'show']);
+    Route::resource('magic', 'UserMagicController')->only(['index', 'store', 'show']);
 });
-
 
 
 

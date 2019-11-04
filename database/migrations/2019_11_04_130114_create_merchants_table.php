@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddApitokenToUsersTable extends Migration
+class CreateMerchantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AddApitokenToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token', 80)->after('password')
-                        ->unique()->nullable();
+        Schema::create('merchants', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->timestamps();
+            $table->string('name');
+            $table->string('password')->unique();
+            $table->rememberToken()->nullable();
         });
     }
 
@@ -26,8 +29,6 @@ class AddApitokenToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('merchants');
     }
 }
