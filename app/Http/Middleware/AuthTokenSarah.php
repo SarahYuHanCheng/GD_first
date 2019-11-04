@@ -6,6 +6,8 @@ use Closure;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Providers\TokenServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthTokenSarah
 {
@@ -20,34 +22,33 @@ class AuthTokenSarah
     public function handle($request, Closure $next, $pa1)
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        
-        $user_name = $request->input('name');
-
-        $user1=User::where('name',$user_name)->first();
-        $out->writeln("*hand* ".$user1);
-        if($user1){
-            if ($request->input('api_token')){
-                $out->writeln("*token* ");
-                if($request->input('api_token') == $user1->api_token){
-                    $out->writeln("*bingo* ".$user1);
-                    $request->attributes->add(['uesr' => json_encode($user1)]);
-                    $request->merge(['user' => $user1]);
-                    return $next($request);
-                }else{
-                        $provider = new TokenServiceProvider;
-                        $new_token = $provider->updateToken($user1);
-                        $out->writeln("*reset token* ");
-                        return $next($request);
-                }
+        $out->writeln("* in handle:* ");
+        try {
+            $credentials = $request->only('remember_token','password');
+            if (Auth::attempt($credentials,true)) {
+                $request->merge(['user' => Auth::user()]);
+                return $next($request);
             }else {
-                $out->writeln("*no token* ");
-                return redirect('api/home');
+            
+                try {
+                    $credentials = $request->only('name', 'password');
+                    if (Auth::attempt($credentials,true)) {
+                        // Authentication passed...
+                        // return redirect()->intended('dashboard');
+                        $provider = new TokenServiceProvider;
+                        $new_token = $provider->updateToken($request->user);
+                        $request->merge(['user' => Auth::user()]);
+                        return $next($request);
+                    }
+                } catch (\Throwable $th) {
+                    $out->writeln("* attempt error:* ".$th);
+                }
             }
-        }else {
-            $out->writeln("*no user* ");
-            return redirect('api/home');
+        } catch (\Throwable $th) {
+            $out->writeln("* first error:* ".$th);
+        
         }
-    
+
         
         // $out->writeln("*pa1* ".$pa1); 
 
