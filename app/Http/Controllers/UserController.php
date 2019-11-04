@@ -19,13 +19,15 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-       
-        $this->out->writeln("loginnnnnn"); 
+        $user1 = $request->get('user');
+        $this->out->writeln("loginnnnnn".$user1); 
     }
 
 
     public function logout(Request $request)
     {
+        
+        
         $user1 = User::where('name', $request->input('name'))->first();
         $provider = new TokenServiceProvider;
         $provider->deleteToken($user1);
