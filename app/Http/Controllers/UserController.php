@@ -19,7 +19,10 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        $user1 = $request->get('user');
+        $user1 = $request->user;
+        
+        $user1->update(['name'=>'sarah']);
+        $user1->save();
         $this->out->writeln("loginnnnnn".$user1); 
     }
 

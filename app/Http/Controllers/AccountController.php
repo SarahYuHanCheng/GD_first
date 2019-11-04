@@ -60,9 +60,26 @@ class AccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        $user1 = Account::where('id', $request->input('name'))->first();
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+        
+        $account = Account::find($id);
+        if($account->user_id==$request->user->id){
+            
+            $history = $account->transactionHistory();
+            
+            // $out->writeln("right user".$history);
+            
+            $sub=$history->map(function ($history) {
+                return collect($history->toArray())
+                    ->only(['id', 'payer', 'payee','amount'])
+                    ->all();
+            });
+            return $sub;
+        }else{
+            $out->writeln("not the user");
+        }
     }
 
     /**

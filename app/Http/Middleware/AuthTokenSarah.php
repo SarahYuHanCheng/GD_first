@@ -22,16 +22,17 @@ class AuthTokenSarah
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
         
         $user_name = $request->input('name');
-        
+
         $user1=User::where('name',$user_name)->first();
         $out->writeln("*hand* ".$user1);
         if($user1){
             if ($request->input('api_token')){
                 $out->writeln("*token* ");
                 if($request->input('api_token') == $user1->api_token){
-                        $out->writeln("*bingo* ".$user1);
-                        $request->attributes->add(['uesr' => json_encode($user1)]);
-                        return $next($request);
+                    $out->writeln("*bingo* ".$user1);
+                    $request->attributes->add(['uesr' => json_encode($user1)]);
+                    $request->merge(['user' => $user1]);
+                    return $next($request);
                 }else{
                         $provider = new TokenServiceProvider;
                         $new_token = $provider->updateToken($user1);

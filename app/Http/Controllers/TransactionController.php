@@ -47,36 +47,46 @@ class TransactionController extends Controller
     {
         try {
             $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-            $out->writeln("transaction store");
+            //check if the user has tthe account
             //check two accounts avaiable
             //check payer balance enough to pay
-            $payer = Account::where('id', $request->input('payer'))->first();
-            $payee = Account::where('id', $request->input('payee'))->first();
-                
-            $amount = $request->input('amount');
-            
-            if($payer && $payee){
-                if($payer->balance > $amount){
-                    try {
-                        $transaction = Transaction::create([
-                            'payer' => $payer->id,
-                            'payee' => $payee->id,
-                            'currency_code'=>$request->input('currency_code', ''),
-                            'amount' => $request->input('amount', 0),
-                            'type' => $request->input('type', 0),
-                        ]);
-                        $payer->update('balance', $payer->balance-$amount);
-                        $payee->update('balance', $payee->balance+$amount);
-                        dd($transaction);
-                    } catch (\Throwable $th) {
-                        //rollback
-                        echo $th;
-                    }
-                }else {
-                        return "balance isnot enough";
-                    }
+            $payer = Account::find($request->payer);
+            $payee = Account::find($request->payee);
+            $theuser=$payer->user()->get();
+            $sub=$theuser->map(function ($theuser) {
+                return collect($theuser->toArray())
+                    ->only(['id', 'name'])
+                    ->all();
+            });
+            if($sub[0]['id']!=$request->user->id){
+                return "can't move the account";
             }else {
-            return "the account is not exist";
+            
+                $amount = $request->input('amount');
+            
+                if($payer && $payee){
+                    if($payer->balance > $amount){
+                        try {
+                            $transaction = Transaction::create([
+                                'payer' => $payer->id,
+                                'payee' => $payee->id,
+                                'currency_code'=>$request->input('currency_code', ''),
+                                'amount' => $request->input('amount', 0),
+                                'type' => $request->input('type', 0),
+                            ]);
+                            $payer->update(['balance'=> $payer->balance-$amount]);
+                            $payee->update(['balance'=> $payee->balance+$amount]);
+                            $out->writeln("transaction successful");
+                        } catch (\Throwable $th) {
+                            //rollback
+                            echo $th;
+                        }
+                    }else {
+                            return "balance isnot enough";
+                        }
+                }else {
+                return "the account is not exist";
+                }
             }
             return $transaction->id() ;
         } catch (\Throwable $th) {
