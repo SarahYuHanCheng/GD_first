@@ -7,6 +7,6 @@ use App\Models\User;
 class UserMagic extends Model
 {
     protected $fillable = [
-        'name', 'price', 'level'
+        'user_id', 'magic_id',
     ];
 }

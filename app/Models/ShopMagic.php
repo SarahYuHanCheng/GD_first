@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-class Magic extends Model
+class ShopMagic extends Model
 {
     protected $fillable = [
-        'name', 'price','level',
+        'shop_id', 'magic_id',
     ];
 }
