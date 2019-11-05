@@ -60,7 +60,7 @@ class ShopController extends Controller
                 $join->where('user_magics.user_id','=', Auth::user()->id)
                 ->on('shop_magics.magic_id', '=', 'user_magics.magic_id');
             })
-            ->select('magics.name','magics.price','magics.level','user_magics.magic_id')
+            ->select('magics.id','magics.name','magics.price','magics.level','user_magics.magic_id')
             ->get();
         return $magics;
     }
