@@ -19,24 +19,25 @@ class AuthTokenSarah
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $pa1)
+    public function handle($request, Closure $next, $role)
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $out->writeln("* in handle:* ");
+        $out->writeln("* in auth handle:* ");
         try {
             $credentials = $request->only('remember_token','password');
             if (Auth::attempt($credentials,true)) {
+                $out->writeln("* auth ok:* ");
                 $request->merge(['user' => Auth::user()]);
-                return $next($request);
             }else {
-            
+                $out->writeln("* no remember:* ");
                 try {
                     $credentials = $request->only('name', 'password');
                     if (Auth::attempt($credentials,true)) {
                         // Authentication passed...
                         // return redirect()->intended('dashboard');
-                        $provider = new TokenServiceProvider;
-                        $new_token = $provider->updateToken($request->user);
+                        // $provider = new TokenServiceProvider;
+                        // $new_token = $provider->updateToken(Auth::user());
+                        
                         $request->merge(['user' => Auth::user()]);
                         return $next($request);
                     }
@@ -44,6 +45,13 @@ class AuthTokenSarah
                     $out->writeln("* attempt error:* ".$th);
                 }
             }
+            if($role ==  'merchant'){
+                if( Auth::user()->role != '1'){
+                    return response()->json(['result'=>'Can\'t access the url.']);
+                }
+            }
+            
+            return $next($request);
         } catch (\Throwable $th) {
             $out->writeln("* first error:* ".$th);
         
