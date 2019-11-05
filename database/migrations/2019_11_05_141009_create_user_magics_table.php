@@ -21,7 +21,8 @@ class CreateUserMagicsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('magic_id');
             $table->foreign('magic_id')->references('id')->on('magics')->onDelete('cascade');
-
+            $table->unsignedBigInteger('transaction_id');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
         });
     }
 
