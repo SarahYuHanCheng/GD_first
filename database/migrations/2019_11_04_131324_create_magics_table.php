@@ -16,8 +16,9 @@ class CreateMagicsTable extends Migration
         Schema::create('magics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('name');
-            $table->string('price');
+            $table->decimal('price', 10, 0);
             $table->integer('level');
 
         });

@@ -18,8 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('password')->unique();
             $table->rememberToken()->nullable();
-            $table->integer('balance');
+            $table->integer('balance')->default(2000);
+            $table->integer('role')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

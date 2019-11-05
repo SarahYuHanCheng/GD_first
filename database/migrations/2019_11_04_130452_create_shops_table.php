@@ -16,9 +16,10 @@ class CreateShopsTable extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('name');
-            $table->unsignedBigInteger('merchant_id');
-            $table->foreign('merchant_id')->references('id')->on('merchants')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -16,6 +16,7 @@ class CreateShopMagicsTable extends Migration
         Schema::create('shop_magics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->unsignedBigInteger('shop_id');
             $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
             $table->unsignedBigInteger('magic_id');

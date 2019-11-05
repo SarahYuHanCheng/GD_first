@@ -16,6 +16,7 @@ class CreateUserMagicsTable extends Migration
         Schema::create('user_magics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('magic_id');
