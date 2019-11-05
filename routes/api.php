@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth.user:user']], function(){
     Route::post('login', 'UserController@login');
     Route::resource('shop', 'ShopController')->only(['index', 'show']);
     Route::resource('magic', 'UserMagicController')->only(['index', 'store', 'show']);
+    Route::resource('transactions', 'TransactionController')->only(['index', 'store', 'show']);
 });
 
 

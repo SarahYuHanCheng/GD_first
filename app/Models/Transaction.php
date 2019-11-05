@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-class UserMagic extends Model
+
+class Transaction extends Model
 {
     protected $fillable = [
-        'user_id', 'magic_id','transaction_id'
+        'user_id', 'shop_id','detial',
     ];
 }

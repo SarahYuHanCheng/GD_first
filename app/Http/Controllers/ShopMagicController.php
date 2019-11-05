@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ShopMagic;
+use App\Models\Shop;
 class ShopMagicController extends Controller
 {
     /**
@@ -34,10 +35,17 @@ class ShopMagicController extends Controller
      */
     public function store(Request $request)
     {
-        return ShopMagic::create([
-            'shop_id' => $request->shop_id,
-            'magic_id' => $request->magic_id,
-        ]);
+        $user_id = Shop::where(['id'=> $request->shop_id])->first()->user_id;
+        
+        if($request->user->id == $user_id){
+            return ShopMagic::create([
+                'shop_id' => $request->shop_id,
+                'magic_id' => $request->magic_id,
+            ]);
+        }else {
+            return response()->json(['user'=>$request->user,'result'=>"no permition to the store"]);
+        }
+        
     }
 
     /**

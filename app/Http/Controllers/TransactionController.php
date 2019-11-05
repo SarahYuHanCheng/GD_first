@@ -3,22 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Magic;
-use App\Models\UserMagic;
 use App\Models\Transaction;
 
-class UserMagicController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //list the magic that user have
-        
+        return Transaction::where(['user_id'=>$request->user->id])->get();
     }
 
     /**
@@ -39,26 +35,7 @@ class UserMagicController extends Controller
      */
     public function store(Request $request)
     {
-        $magics = Magic::whereIn('id',$request->magics)->select('id','name','price','level')->get();
-        if($request->user->balance > $magics->sum('price')){
-            $request->user->balance -= $magics->sum('price');
-            $request->user->save();
-            $transaction = Transaction::create([
-                'user_id' => $request->user->id,
-                'shop_id' => $request->shop_id,
-                'detial' => $magics,
-            ]);
-
-            foreach($magics as $magic){
-                UserMagic::create([
-                    'user_id' => $request->user->id,
-                    'magic_id' => $magic->id,
-                    'transaction_id' => $transaction->id,
-                ]);
-            }
-        }
-        
-        return response()->json(['user'=>$request->user,'shop'=>$request->shop_id,'magics'=>$magics]);
+        //
     }
 
     /**
@@ -67,9 +44,13 @@ class UserMagicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $transaction=Transaction::where(['id'=>$id])->first();
+        if ($request->user->id != $transaction->user_id) {
+            return response()->json(['user'=>$request->user,'result'=>"no permition to the transaction"]);
+        }
+        return response()->json(['user'=>$request->user,'transaction'=> $transaction,'result'=>"success"]);
     }
 
     /**
