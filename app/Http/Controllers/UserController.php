@@ -19,11 +19,7 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        $user1 = $request->user;
-        
-        $user1->update(['name'=>'sarah']);
-        $user1->save();
-        $this->out->writeln("loginnnnnn".$user1); 
+        return $request->user;
     }
 
 
@@ -55,19 +51,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $out->writeln("create");
-
-        $token = Hash::make(Str::random(60));
-        User::create([
-            'name' => $request->input('name', ''),
-            'password' => Hash::make($request->input('password', '')),
-            'api_token' => $token,
-        ]);
-        $data = [
-            'api_token' => $token,
-        ];
-        return response()->json($data);
+        
     }
 
     /**
@@ -79,28 +63,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $out = new \Symfony\Component\Console\Output\ConsoleOutput();
-        $out->writeln("* store *"); 
-        return "";
-        try {
-            $token = hash('sha256', Str::random(60));
-            $user = new User(
-                [
-                    'name' => $request->input('name', ''),
-                    'password' => $request->input('password', ''),
-                    'api_token' => $token,
-                ]
-            );
-            $user->save();
-            $data = [
-                'api_token' => $token,
-            ];
-            
-            
-            return response()->json($data);
-        } catch (\Throwable $th) {
-            
-            $out->writeln("* store user error *".$th); 
-        }
+        $out->writeln("store".$request->role);
+
+        $token = Hash::make(Str::random(60));
+        
+        return User::create([
+            'name' => $request->name,
+            'password' => Hash::make($request->password),
+            'api_token' => $token,
+            'role'=>$request->role,
+        ]);
         
 
     }

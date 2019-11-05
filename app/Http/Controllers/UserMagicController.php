@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Magic;
+use App\Models\UserMagic;
 
 class UserMagicController extends Controller
 {
@@ -36,10 +38,20 @@ class UserMagicController extends Controller
      */
     public function store(Request $request)
     {
-        return UserMagic::create([
-            'user_id' => $request->user->id,
-            'magic_id' => $request->magic_id,
-        ]);
+        $magics = Magic::whereIn('id',$request->magics)->select('id','name','price','level')->get();
+        if($request->user->balance > $magics->sum('price')){
+            $request->user->balance -= $magics->sum('price');
+            $request->user->save();
+        }
+        
+        foreach($magics as $magic){
+            UserMagic::create([
+                'user_id' => $request->user->id,
+                'magic_id' => $magic->id,
+            ]);
+        }
+       
+        return response()->json(['user'=>$request->user,'magics'=>$magics]);
     }
 
     /**
