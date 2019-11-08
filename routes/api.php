@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 */
 Route::post('register', 'UserController@store');
 
+Route::group(['prefix' => 'auth'], function(){
+    Route::get('/', 'AuthController@me');
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+});
 
 Route::group(['middleware' => ['auth.user:merchant']], function(){
     Route::get('merchant/logout', 'UserController@logout');
@@ -23,8 +28,6 @@ Route::group(['middleware' => ['auth.user:merchant']], function(){
     Route::resource('merchant/magic', 'MagicController')->only(['index', 'store', 'show']);
 });
 Route::group(['middleware' => ['auth.user:user']], function(){
-    Route::get('logout', 'UserController@logout');
-    Route::post('login', 'UserController@login');
     Route::resource('shop', 'ShopController')->only(['index', 'show']);
     Route::resource('magic', 'UserMagicController')->only(['index', 'store', 'show']);
     Route::resource('transactions', 'TransactionController')->only(['index', 'store', 'show']);
