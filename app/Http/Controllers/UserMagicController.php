@@ -39,9 +39,12 @@ class UserMagicController extends Controller
      */
     public function store(Request $request)
     {
-        $magics = Magic::whereIn('id',$request->magics)->select('id','name','price','level')->get();
+        $magics = Magic::where('id',$request->magic_id)->select('id','name','price','level')->get();
+        // $magics = Magic::whereIn('id',$request->magics)->select('id','name','price','level')->get();
         if($request->user->balance > $magics->sum('price')){
             $request->user->balance -= $magics->sum('price');
+
+
             $request->user->save();
             $transaction = Transaction::create([
                 'user_id' => $request->user->id,
@@ -49,16 +52,22 @@ class UserMagicController extends Controller
                 'detial' => $magics,
             ]);
 
-            foreach($magics as $magic){
-                UserMagic::create([
-                    'user_id' => $request->user->id,
-                    'magic_id' => $magic->id,
-                    'transaction_id' => $transaction->id,
-                ]);
-            }
+            UserMagic::create([
+                        'user_id' => $request->user->id,
+                        'magic_id' => $request->magic_id,
+                        'transaction_id' => $transaction->id,
+                    ]);
+
+            // foreach($magics as $magic){
+            //     UserMagic::create([
+            //         'user_id' => $request->user->id,
+            //         'magic_id' => $magic->id,
+            //         'transaction_id' => $transaction->id,
+            //     ]);
+            // }
         }
-        
-        return response()->json(['user'=>$request->user,'shop'=>$request->shop_id,'magics'=>$magics]);
+        $user = Auth::user()->where('id',$request->user->id)->select('name','balance')->first();
+        return response()->json(['user'=>$user,'shop'=>$request->shop_id,'magics'=>$magics]);
     }
 
     /**
