@@ -62,113 +62,112 @@ class ShopController extends Controller
         //     })
         //     ->select('magics.id','magics.name','magics.price','magics.level','user_magics.magic_id')
         //     ->get();
-        // $arr = json_decode('{ "id": 3 }  ', true );
-
-        $magics = "{
-                { 'id': 1,
-                'photo':'R.drawable.m0',
-                'name': '隱身術',
-                'price': '100',
-                'level': 1,
-                'magic_id': 1
+        $magics = "
+            {
+                “id”: 1,
+                “photo”:“R.drawable.m0”,
+                “name”: “隱身術”,
+                “price”: “100”,
+                “level”: 1,
+                “magic_id”: 1
                 },
                 {
-                'id': 2,
-                'photo':'R.drawable.m1',
-                'name': '無所遁形術',
-                'price': '200',
-                'level': 1,
-                'magic_id': 0
+                “id”: 2,
+                “photo”:“R.drawable.m1”,
+                “name”: “無所遁形術”,
+                “price”: “200”,
+                “level”: 1,
+                “magic_id”: 0
                 },
                 {
-                'id': 3,
-                'photo':'R.drawable.m2',
-                'name': '光劍',
-                'price': '50',
-                'level': 2,
-                'magic_id': 0
+                “id”: 3,
+                “photo”:“R.drawable.m2”,
+                “name”: “光劍”,
+                “price”: “50”,
+                “level”: 2,
+                “magic_id”: 0
                 },
                 {
-                'id': 4,
-                'photo':'R.drawable.m3',
-                'name': '光劍',
-                'price': '200',
-                'level': 3,
-                'magic_id': 0
+                “id”: 4,
+                “photo”:“R.drawable.m3”,
+                “name”: “光劍”,
+                “price”: “200”,
+                “level”: 3,
+                “magic_id”: 0
                 },
                 {
-                'id': 5,
-                'photo':'R.drawable.m4',
-                'name': '光劍',
-                'price': '250',
-                'level': 3,
-                'magic_id': 0
+                “id”: 5,
+                “photo”:“R.drawable.m4”,
+                “name”: “光劍”,
+                “price”: “250”,
+                “level”: 3,
+                “magic_id”: 0
                 },
                 {
-                'id': 6,
-                'photo':'R.drawable.m5',
-                'name': '光劍',
-                'price': '50',
-                'level': 2,
-                'magic_id': 0
+                “id”: 6,
+                “photo”:“R.drawable.m5”,
+                “name”: “光劍”,
+                “price”: “50”,
+                “level”: 2,
+                “magic_id”: 0
                 },
                 {
-                'id': 7,
-                'photo':'R.drawable.m6',
-                'name': '光劍',
-                'price': '50',
-                'level': 1,
-                'magic_id': 0
+                “id”: 7,
+                “photo”:“R.drawable.m6”,
+                “name”: “光劍”,
+                “price”: “50”,
+                “level”: 1,
+                “magic_id”: 0
                 },
                 {
-                'id': 8,
-                'photo':'R.drawable.m7',
-                'name': '光劍',
-                'price': '100',
-                'level': 1,
-                'magic_id': 0
+                “id”: 8,
+                “photo”:“R.drawable.m7”,
+                “name”: “光劍”,
+                “price”: “100”,
+                “level”: 1,
+                “magic_id”: 0
                 },
                 {
-                'id': 9,
-                'photo':'R.drawable.m8',
-                'name': '光劍',
-                'price': '150',
-                'level': 2,
-                'magic_id': 0
+                “id”: 9,
+                “photo”:“R.drawable.m8”,
+                “name”: “光劍”,
+                “price”: “150”,
+                “level”: 2,
+                “magic_id”: 0
                 },
                 {
-                'id': 10,
-                'photo':'R.drawable.m9',
-                'name': '光劍',
-                'price': '350',
-                'level': 3,
-                'magic_id': 0
+                “id”: 10,
+                “photo”:“R.drawable.m9”,
+                “name”: “光劍”,
+                “price”: “350”,
+                “level”: 3,
+                “magic_id”: 0
                 },
                 {
-                'id': 11,
-                'photo':'R.drawable.m10',
-                'name': '光劍',
-                'price': '200',
-                'level': 3,
-                'magic_id': 0
+                “id”: 11,
+                “photo”:“R.drawable.m10”,
+                “name”: “光劍”,
+                “price”: “200”,
+                “level”: 3,
+                “magic_id”: 0
                 },
                 {
-                'id': 12,
-                'photo':'R.drawable.m11',
-                'name': '光劍',
-                'price': '150',
-                'level': 2,
-                'magic_id': 0
+                “id”: 12,
+                “photo”:“R.drawable.m11”,
+                “name”: “光劍”,
+                “price”: “150”,
+                “level”: 2,
+                “magic_id”: 0
                 },
                 {
-                'id': 13,
-                'photo':'R.drawable.m12',
-                'name': '光劍',
-                'price': '50',
-                'level': 1,
-                'magic_id': 0
+                “id”: 13,
+                “photo”:“R.drawable.m12”,
+                “name”: “光劍”,
+                “price”: “50”,
+                “level”: 1,
+                “magic_id”: 0
                 }
-        }";
+                ";
 
         return $magics;
     }
