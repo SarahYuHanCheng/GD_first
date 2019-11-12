@@ -39,7 +39,9 @@ class AuthTokenSarah
                         // $new_token = $provider->updateToken(Auth::user());
                         
                         $request->merge(['user' => Auth::user()]);
-                        return $next($request);
+                        
+                    }else {
+                        return response()->json(['result'=>'please login first. =)']);
                     }
                 } catch (\Throwable $th) {
                     $out->writeln("* attempt error:* ".$th);
