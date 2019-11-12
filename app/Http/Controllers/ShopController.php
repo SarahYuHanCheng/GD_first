@@ -58,135 +58,134 @@ class ShopController extends Controller
         if ($id==2) {
             $magics = "[
             {
-                “id”: 1,
-                “photo”:“R.drawable.m0”,
-                “name”: “隱身術”,
-                “price”: “100”,
-                “level”: 1,
-                “magic_id”: 1
+                \"id\": 1,
+                \"photo\":\"R.drawable.m0\",
+                \"name\": \"隱身術\",
+                \"price\": \"100\",
+                \"level\": 1,
+                \"magic_id\": 1
                 },
                 {
-                “id”: 2,
-                “photo”:“R.drawable.m1”,
-                “name”: “無所遁形術”,
-                “price”: “200”,
-                “level”: 1,
-                “magic_id”: 0
+                \"id\": 2,
+                \"photo\":\"R.drawable.m1\",
+                \"name\": \"無所遁形術\",
+                \"price\": \"200\",
+                \"level\": 1,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 3,
-                “photo”:“R.drawable.m2”,
-                “name”: “光劍”,
-                “price”: “50”,
-                “level”: 2,
-                “magic_id”: 0
+                \"id\": 3,
+                \"photo\":\"R.drawable.m2\",
+                \"name\": \"光劍\",
+                \"price\": \"50\",
+                \"level\": 2,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 4,
-                “photo”:“R.drawable.m3”,
-                “name”: “光劍”,
-                “price”: “200”,
-                “level”: 3,
-                “magic_id”: 0
+                \"id\": 4,
+                \"photo\":\"R.drawable.m3\",
+                \"name\": \"光劍\",
+                \"price\": \"200\",
+                \"level\": 3,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 5,
-                “photo”:“R.drawable.m4”,
-                “name”: “光劍”,
-                “price”: “250”,
-                “level”: 3,
-                “magic_id”: 0
+                \"id\": 5,
+                \"photo\":\"R.drawable.m4\",
+                \"name\": \"光劍\",
+                \"price\": \"250\",
+                \"level\": 3,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 6,
-                “photo”:“R.drawable.m5”,
-                “name”: “光劍”,
-                “price”: “50”,
-                “level”: 2,
-                “magic_id”: 0
+                \"id\": 6,
+                \"photo\":\"R.drawable.m5\",
+                \"name\": \"光劍\",
+                \"price\": \"50\",
+                \"level\": 2,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 7,
-                “photo”:“R.drawable.m6”,
-                “name”: “光劍”,
-                “price”: “50”,
-                “level”: 1,
-                “magic_id”: 0
+                \"id\": 7,
+                \"photo\":\"R.drawable.m6\",
+                \"name\": \"光劍\",
+                \"price\": \"50\",
+                \"level\": 1,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 8,
-                “photo”:“R.drawable.m7”,
-                “name”: “光劍”,
-                “price”: “100”,
-                “level”: 1,
-                “magic_id”: 0
+                \"id\": 8,
+                \"photo\":\"R.drawable.m7\",
+                \"name\": \"光劍\",
+                \"price\": \"100\",
+                \"level\": 1,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 9,
-                “photo”:“R.drawable.m8”,
-                “name”: “光劍”,
-                “price”: “150”,
-                “level”: 2,
-                “magic_id”: 0
+                \"id\": 9,
+                \"photo\":\"R.drawable.m8\",
+                \"name\": \"光劍\",
+                \"price\": \"150\",
+                \"level\": 2,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 10,
-                “photo”:“R.drawable.m9”,
-                “name”: “光劍”,
-                “price”: “350”,
-                “level”: 3,
-                “magic_id”: 0
+                \"id\": 10,
+                \"photo\":\"R.drawable.m9\",
+                \"name\": \"光劍\",
+                \"price\": \"350\",
+                \"level\": 3,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 11,
-                “photo”:“R.drawable.m10”,
-                “name”: “光劍”,
-                “price”: “200”,
-                “level”: 3,
-                “magic_id”: 0
+                \"id\": 11,
+                \"photo\":\"R.drawable.m10\",
+                \"name\": \"光劍\",
+                \"price\": \"200\",
+                \"level\": 3,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 12,
-                “photo”:“R.drawable.m11”,
-                “name”: “光劍”,
-                “price”: “150”,
-                “level”: 2,
-                “magic_id”: 0
+                \"id\": 12,
+                \"photo\":\"R.drawable.m11\",
+                \"name\": \"光劍\",
+                \"price\": \"150\",
+                \"level\": 2,
+                \"magic_id\": 0
                 },
                 {
-                “id”: 13,
-                “photo”:“R.drawable.m12”,
-                “name”: “光劍”,
-                “price”: “50”,
-                “level”: 1,
-                “magic_id”: 0
-                }]
-                ";
+                \"id\": 13,
+                \"photo\":\"R.drawable.m12\",
+                \"name\": \"光劍\",
+                \"price\": \"50\",
+                \"level\": 1,
+                \"magic_id\": 0
+                }]";
         }else {
             $magics = " [
-                MagicBook(id: 0, name: “保護罩“, level: 1, price: 100),
-                MagicBook(id: 1, name: “光箭“, level: 1, price: 100),
-                MagicBook(id: 2, name: “冰箭“, level: 1, price: 100),
-                MagicBook(id: 3, name: “初級治癒術“, level: 1, price: 100),
-                MagicBook(id: 4, name: “指定傳送“, level: 1, price: 100),
-                MagicBook(id: 5, name: “日光術“, level: 1, price: 100),
-                MagicBook(id: 6, name: “神聖武器“, level: 1, price: 100),
-                MagicBook(id: 7, name: “風刃“, level: 1, price: 100),
-                MagicBook(id: 8, name: “地獄之牙“, level: 2, price: 300),
-                MagicBook(id: 9, name: “寒冷戰慄“, level: 2, price: 300),
-                MagicBook(id: 10, name: “擬似魔法武器“, level: 2, price: 300),
-                MagicBook(id: 11, name: “毒咒“, level: 2, price: 300),
-                MagicBook(id: 12, name: “火箭“, level: 2, price: 300),
-                MagicBook(id: 13, name: “無所遁形術“, level: 2, price: 300),
-                MagicBook(id: 14, name: “解毒術“, level: 2, price: 300),
-                MagicBook(id: 15, name: “負重強化“, level: 2, price: 300),
-                MagicBook(id: 16, name: “中級治癒術“, level: 3, price: 500),
-                MagicBook(id: 17, name: “寒冰氣息“, level: 3, price: 500),
-                MagicBook(id: 18, name: “極光雷電“, level: 3, price: 500),
-                MagicBook(id: 19, name: “能量感測“, level: 3, price: 500),
-                MagicBook(id: 20, name: “起死回生術“, level: 3, price: 500),
-                MagicBook(id: 21, name: “鎧甲護持“, level: 3, price: 500),
-                MagicBook(id: 22, name: “闇盲咒術“, level: 3, price: 500)
+                MagicBook(id: 0, name: \"保護罩\", level: 1, price: 100),
+                MagicBook(id: 1, name: \"光箭\", level: 1, price: 100),
+                MagicBook(id: 2, name: \"冰箭\", level: 1, price: 100),
+                MagicBook(id: 3, name: \"初級治癒術\", level: 1, price: 100),
+                MagicBook(id: 4, name: \"指定傳送\", level: 1, price: 100),
+                MagicBook(id: 5, name: \"日光術\", level: 1, price: 100),
+                MagicBook(id: 6, name: \"神聖武器\", level: 1, price: 100),
+                MagicBook(id: 7, name: \"風刃\", level: 1, price: 100),
+                MagicBook(id: 8, name: \"地獄之牙\", level: 2, price: 300),
+                MagicBook(id: 9, name: \"寒冷戰慄\", level: 2, price: 300),
+                MagicBook(id: 10, name: \"擬似魔法武器\", level: 2, price: 300),
+                MagicBook(id: 11, name: \"毒咒\", level: 2, price: 300),
+                MagicBook(id: 12, name: \"火箭\", level: 2, price: 300),
+                MagicBook(id: 13, name: \"無所遁形術\", level: 2, price: 300),
+                MagicBook(id: 14, name: \"解毒術\", level: 2, price: 300),
+                MagicBook(id: 15, name: \"負重強化\", level: 2, price: 300),
+                MagicBook(id: 16, name: \"中級治癒術\", level: 3, price: 500),
+                MagicBook(id: 17, name: \"寒冰氣息\", level: 3, price: 500),
+                MagicBook(id: 18, name: \"極光雷電\", level: 3, price: 500),
+                MagicBook(id: 19, name: \"能量感測\", level: 3, price: 500),
+                MagicBook(id: 20, name: \"起死回生術\", level: 3, price: 500),
+                MagicBook(id: 21, name: \"鎧甲護持\", level: 3, price: 500),
+                MagicBook(id: 22, name: \"闇盲咒術\", level: 3, price: 500)
             ]";
             //   $magics = ShopMagic::where(['shop_id' => $id])
             // ->join('magics','shop_magics.magic_id', '=', 'magics.id')
