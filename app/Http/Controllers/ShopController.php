@@ -54,15 +54,9 @@ class ShopController extends Controller
     public function show(Request $request , $id)
     {
         // //list all magic, tag the bought magic , join magic table and usermagic table
-        // $magics = ShopMagic::where(['shop_id' => $id])
-        //     ->join('magics','shop_magics.magic_id', '=', 'magics.id')
-        //     ->leftjoin('user_magics', function($join){
-        //         $join->where('user_magics.user_id','=', Auth::user()->id)
-        //         ->on('shop_magics.magic_id', '=', 'user_magics.magic_id');
-        //     })
-        //     ->select('magics.id','magics.name','magics.price','magics.level','user_magics.magic_id')
-        //     ->get();
-        $magics = "
+      
+        if ($id==2) {
+            $magics = "
             {
                 “id”: 1,
                 “photo”:“R.drawable.m0”,
@@ -168,6 +162,17 @@ class ShopController extends Controller
                 “magic_id”: 0
                 }
                 ";
+        }else {
+              $magics = ShopMagic::where(['shop_id' => $id])
+            ->join('magics','shop_magics.magic_id', '=', 'magics.id')
+            ->leftjoin('user_magics', function($join){
+                $join->where('user_magics.user_id','=', Auth::user()->id)
+                ->on('shop_magics.magic_id', '=', 'user_magics.magic_id');
+            })
+            ->select('magics.id','magics.name','magics.price','magics.level','user_magics.magic_id')
+            ->get();
+        }
+        
 
         return $magics;
     }
