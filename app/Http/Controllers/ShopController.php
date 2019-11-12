@@ -71,7 +71,7 @@ class ShopController extends Controller
                 \"name\": \"無所遁形術\",
                 \"price\": \"200\",
                 \"level\": 1,
-                \"magic_id\": 0
+                \"magic_id\": null
                 },
                 {
                 \"id\": 3,
@@ -79,7 +79,7 @@ class ShopController extends Controller
                 \"name\": \"光劍\",
                 \"price\": \"50\",
                 \"level\": 2,
-                \"magic_id\": 0
+                \"magic_id\": null
                 },
                 {
                 \"id\": 4,
@@ -87,7 +87,7 @@ class ShopController extends Controller
                 \"name\": \"光劍\",
                 \"price\": \"200\",
                 \"level\": 3,
-                \"magic_id\": 0
+                \"magic_id\": 4
                 },
                 {
                 \"id\": 5,
@@ -95,7 +95,7 @@ class ShopController extends Controller
                 \"name\": \"光劍\",
                 \"price\": \"250\",
                 \"level\": 3,
-                \"magic_id\": 0
+                \"magic_id\": null
                 },
                 {
                 \"id\": 6,
@@ -103,7 +103,7 @@ class ShopController extends Controller
                 \"name\": \"光劍\",
                 \"price\": \"50\",
                 \"level\": 2,
-                \"magic_id\": 0
+                \"magic_id\": null
                 },
                 {
                 \"id\": 7,
@@ -111,55 +111,7 @@ class ShopController extends Controller
                 \"name\": \"光劍\",
                 \"price\": \"50\",
                 \"level\": 1,
-                \"magic_id\": 0
-                },
-                {
-                \"id\": 8,
-                \"photo\":\"R.drawable.m7\",
-                \"name\": \"光劍\",
-                \"price\": \"100\",
-                \"level\": 1,
-                \"magic_id\": 0
-                },
-                {
-                \"id\": 9,
-                \"photo\":\"R.drawable.m8\",
-                \"name\": \"光劍\",
-                \"price\": \"150\",
-                \"level\": 2,
-                \"magic_id\": 0
-                },
-                {
-                \"id\": 10,
-                \"photo\":\"R.drawable.m9\",
-                \"name\": \"光劍\",
-                \"price\": \"350\",
-                \"level\": 3,
-                \"magic_id\": 0
-                },
-                {
-                \"id\": 11,
-                \"photo\":\"R.drawable.m10\",
-                \"name\": \"光劍\",
-                \"price\": \"200\",
-                \"level\": 3,
-                \"magic_id\": 0
-                },
-                {
-                \"id\": 12,
-                \"photo\":\"R.drawable.m11\",
-                \"name\": \"光劍\",
-                \"price\": \"150\",
-                \"level\": 2,
-                \"magic_id\": 0
-                },
-                {
-                \"id\": 13,
-                \"photo\":\"R.drawable.m12\",
-                \"name\": \"光劍\",
-                \"price\": \"50\",
-                \"level\": 1,
-                \"magic_id\": 0
+                \"magic_id\": 7
                 }]";
         }else {
             $magics = " [
