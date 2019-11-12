@@ -56,7 +56,7 @@ class ShopController extends Controller
         // //list all magic, tag the bought magic , join magic table and usermagic table
       
         if ($id==2) {
-            $magics = "
+            $magics = "[
             {
                 “id”: 1,
                 “photo”:“R.drawable.m0”,
@@ -160,7 +160,7 @@ class ShopController extends Controller
                 “price”: “50”,
                 “level”: 1,
                 “magic_id”: 0
-                }
+                }]
                 ";
         }else {
               $magics = ShopMagic::where(['shop_id' => $id])
