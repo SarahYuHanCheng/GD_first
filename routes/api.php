@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth.user:user']], function(){
     Route::resource('shop', 'ShopController')->only(['index', 'show']);
     Route::resource('magic', 'UserMagicController')->only(['index', 'store', 'show']);
     Route::resource('transactions', 'TransactionController')->only(['index', 'store', 'show']);
+    Route::put('bonus', 'UserController@update');
 });
 
 

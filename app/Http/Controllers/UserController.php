@@ -106,9 +106,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->user->balance += 100;
+        $request->user->save();
+        return response()->json(['result'=>$request->user],200);
     }
 
     /**
