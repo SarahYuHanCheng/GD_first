@@ -20,7 +20,7 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        return $request->user;
+        return response()->json(['result'=>'ok','user'=>$request->user->only('name','balance')],200);
     }
 
 
@@ -31,7 +31,7 @@ class UserController extends Controller
         $user1 = User::where('name', $request->input('name'))->first();
         $provider = new TokenServiceProvider;
         $provider->deleteToken($user1);
-        return "fin";
+        return response()->json(['result'=>'OK'],200);
 
     }
 
@@ -70,6 +70,8 @@ class UserController extends Controller
         
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:users|max:15',
+            'password' => 'required',
+            'role' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -86,7 +88,7 @@ class UserController extends Controller
                 ]);
                 
                 DB::commit();
-                return response()->json(['result'=>"Created",'user'=>$user->where('id',$user->id)->select('name','balance')->get()],201);
+                return response()->json(['result'=>"Created",'user'=>$user->only('name','balance')],201);
 
             } catch(Exception $exception){
                 DB::rollback();
@@ -129,7 +131,7 @@ class UserController extends Controller
     {
         $request->user->balance += 100;
         $request->user->save();
-        return response()->json(['result'=>Auth::user()->where('id',$request->user->id)->select('name','balance')->get()],200);
+        return response()->json(['result'=>'OK','user'=>$request->user->only('name','balance')],200);
     }
 
     /**

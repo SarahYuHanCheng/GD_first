@@ -8,6 +8,8 @@ use App\Models\Shop;
 use App\Models\ShopMagic;
 use App\Models\UserMagic;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class ShopController extends Controller
 {
@@ -39,10 +41,33 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        return Shop::create([
-            'name' => $request->name,
-            'user_id' => $request->user->id,
+        $user = $request->user->only('id','name','balance');
+        $out = new \Symfony\Component\Console\Output\ConsoleOutput();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:25',
         ]);
+
+        if ($validator->fails()) {
+            $out->writeln('failed: '.$validator->messages());
+            return response()->json(['result'=>$validator->messages(),'user'=>$user],406);
+        }else {
+            try {
+                DB::beginTransaction();
+
+                $shop = Shop::create([
+                    'name' => $request->name,
+                    'user_id' => $user['id'],
+                ]);
+
+                DB::commit();
+                return response()->json(['result'=>'Created','user'=>$user,'shop'=>$shop->only('id','name')],201);
+            } catch(Exception $exception){
+                DB::rollback();
+                $out->writeln('exception'.$exception);
+                return response()->json(['result'=>'DB error'],500);
+            }
+        }
     }
 
     /**
