@@ -36,11 +36,12 @@ class MagicController extends Controller
      */
     public function store(Request $request)
     {
-        return Magic::create([
+        $magic = Magic::create([
             'name' => $request->name,
             'price' => $request->price,
             'level' => $request->level,
         ]);
+        return response()->json(['result'=>$magic],201);
     }
 
     /**

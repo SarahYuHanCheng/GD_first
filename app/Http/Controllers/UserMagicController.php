@@ -67,7 +67,7 @@ class UserMagicController extends Controller
             // }
         }
         $user = Auth::user()->where('id',$request->user->id)->select('name','balance')->first();
-        return response()->json(['user'=>$user,'shop'=>$request->shop_id,'magics'=>$magics]);
+        return response()->json(['user'=>$user,'shop'=>$request->shop_id,'magics'=>$magics],201);
     }
 
     /**

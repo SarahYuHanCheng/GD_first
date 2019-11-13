@@ -41,15 +41,16 @@ class AuthTokenSarah
                         $request->merge(['user' => Auth::user()]);
                         
                     }else {
-                        return response()->json(['result'=>'please login first. =)']);
+                        return response()->json(['result'=>'please login first.'],401);
                     }
                 } catch (\Throwable $th) {
                     $out->writeln("* attempt error:* ".$th);
+                    return response()->json(['result'=>'wrong name or password.'],401);
                 }
             }
             if($role ==  'merchant'){
                 if( Auth::user()->role != '1'){
-                    return response()->json(['result'=>'Can\'t access the url.']);
+                    return response()->json(['result'=>'Can\'t access the url.'],403);
                 }
             }
             
