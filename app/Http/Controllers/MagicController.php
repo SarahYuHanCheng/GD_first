@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Magic;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class MagicController extends Controller
 {
@@ -36,12 +38,30 @@ class MagicController extends Controller
      */
     public function store(Request $request)
     {
-        $magic = Magic::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'level' => $request->level,
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:25',
+            'price' => 'required|integer|5',
+            'level' => 'required|integer|max:2',
         ]);
-        return response()->json(['result'=>$magic],201);
+        $user = $request->user->only('name','balance');
+        if ($validator->fails()) {
+
+            return response()->json(['result'=>$validator->messages(),'user'=>$user],406);
+        }else {
+            try {
+                DB::beginTransaction();
+                $magic = Magic::create([
+                    'name' => $request->name,
+                    'price' => $request->price,
+                    'level' => $request->level,
+                ]);
+                DB::commit();
+                return response()->json(['result'=>'Created','magic'=>$magic,'user'=>$user],201);
+            } catch (\Throwable $th) {
+                DB::rollback();
+                return response()->json(['result'=>'Database error','user'=>$user],507);
+            }
+        }
     }
 
     /**

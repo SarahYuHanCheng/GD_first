@@ -149,8 +149,7 @@ class ShopController extends Controller
             ->get();
         }
         
-
-        return $magics;
+        return response()->json(['result'=>"OK",'user'=>$request->user,'magics'=>$magics],200);
     }
 
 

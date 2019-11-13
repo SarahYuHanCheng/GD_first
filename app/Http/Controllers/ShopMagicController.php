@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ShopMagic;
 use App\Models\Shop;
+use Illuminate\Support\Facades\Validator;
+use DB;
 class ShopMagicController extends Controller
 {
     /**
@@ -35,15 +37,37 @@ class ShopMagicController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = Shop::where(['id'=> $request->shop_id])->first()->user_id;
-        
-        if($request->user->id == $user_id){
-            return ShopMagic::create([
-                'shop_id' => $request->shop_id,
-                'magic_id' => $request->magic_id,
-            ]);
+        $validator = Validator::make($request->all(), [
+            'shop_id' => 'required|integer|max:15',
+            'user_id' => 'required|max:15',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['result'=>$validator->messages()],406);
         }else {
-            return response()->json(['user'=>$request->user,'result'=>"no permition to the store"]);
+            $user=$request->user->only('name','balance');
+            $user_id = Shop::where(['id'=> $request->shop_id])->first()->user_id;
+            if($request->user->id != $user_id){
+                return response()->json(['result'=>'UNPROCESSABLE ENTITY','user'=>$user],422);
+            }else {
+            
+                try {
+                    DB::beginTransaction();
+
+                    $ShopMagic =ShopMagic::create([
+                        'shop_id' => $request->shop_id,
+                        'magic_id' => $request->magic_id,
+                    ]);
+                    
+                    DB::commit();
+                    return response()->json(['result'=>"Created",'user'=>$user],201);
+
+                } catch(Exception $exception){
+                    DB::rollback();
+                    return response()->json(['result'=>"Database error",'user'=>$user],507);
+                }
+            }
+        
         }
         
     }
