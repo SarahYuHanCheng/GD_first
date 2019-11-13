@@ -70,8 +70,8 @@ class UserController extends Controller
         
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:users|max:15',
-            'password' => 'required',
-            'role' => 'required',
+            'password' => 'required|max:15',
+            'role' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -85,6 +85,7 @@ class UserController extends Controller
                     'name' => $request->name,
                     'password' => Hash::make($request->password),
                     'role'=>$request->role,
+                    'balance'=>2000,
                 ]);
                 
                 DB::commit();
