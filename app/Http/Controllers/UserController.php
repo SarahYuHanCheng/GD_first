@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Providers\TokenServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Validator;
+use DB;
 class UserController extends Controller
 {
     private $out;
@@ -67,14 +68,32 @@ class UserController extends Controller
 
         $token = Hash::make(Str::random(60));
         
-        return User::create([
-            'name' => $request->name,
-            'password' => Hash::make($request->password),
-            'api_token' => $token,
-            'role'=>$request->role,
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:users|max:15',
         ]);
-        
 
+        if ($validator->fails()) {
+            $out->writeln('failed: '.$validator->messages());
+            return response()->json(['result'=>$validator->messages()],406);
+        }else {
+            try {
+                DB::beginTransaction();
+
+                $user =User::create([
+                    'name' => $request->name,
+                    'password' => Hash::make($request->password),
+                    'role'=>$request->role,
+                ]);
+                
+                DB::commit();
+                return response()->json(['result'=>"Created",'user'=>$user->where('id',$user->id)->select('name','balance')->get()],201);
+
+            } catch(Exception $exception){
+                DB::rollback();
+                $out->writeln('exception'.$exception);
+                return response()->json(['result'=>"Database error",],507);
+            }
+        }
     }
 
     /**
@@ -110,7 +129,7 @@ class UserController extends Controller
     {
         $request->user->balance += 100;
         $request->user->save();
-        return response()->json(['result'=>$request->user],200);
+        return response()->json(['result'=>$request->user->select('name','balance')->get()],200);
     }
 
     /**
