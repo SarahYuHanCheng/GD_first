@@ -129,7 +129,7 @@ class UserController extends Controller
     {
         $request->user->balance += 100;
         $request->user->save();
-        return response()->json(['result'=>$request->user],200);
+        return response()->json(['result'=>$request->user->select('name','balance')->get()],200);
     }
 
     /**
