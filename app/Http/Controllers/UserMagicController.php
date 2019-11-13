@@ -41,7 +41,7 @@ class UserMagicController extends Controller
     {
         $magics = Magic::where('id',$request->magic_id)->select('id','name','price','level')->get();
         // $magics = Magic::whereIn('id',$request->magics)->select('id','name','price','level')->get();
-        if($request->user->balance > $magics->sum('price')){
+        if($request->user->balance >= $magics->sum('price')){
             $request->user->balance -= $magics->sum('price');
 
 
